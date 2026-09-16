@@ -13,7 +13,8 @@ kiln_name = "AIM"
 # Password required to avoid accidental firing cancellations or curve modifications 
 # The password is also required to execute optional BACKEND-FUNCTIONs 1 and 2
 # set passcode to "" to disable
-function_passcode = "pass"
+#function_passcode = "pass"
+function_passcode = ""
 
 # Enable a blinking LED while service is running.
 # Requires modules: gpiozero, signal, warnings, os, sys
@@ -161,10 +162,12 @@ sensor_time_wait = 2
 # If you have oscillations that don't stop or increase in size, reduce pid_kp
 # If you have an oscillation but the temperature is mostly below the setpoint, decrease pid_ki.
 
-pid_kp = 10   # Proportional 25,200,200
-pid_ki = 80   # Integral
-pid_kd = 220  #220.83497910261562 # Derivative
-
+#pid_kp = 10   # Proportional 25,200,200
+#pid_ki = 80   # Integral
+#pid_kd = 220  #220.83497910261562 # Derivative
+pid_kp = 3
+pid_ki = 44
+pid_kd = 129
 ########################################################################
 #
 # Initial heating and Integral Windup
