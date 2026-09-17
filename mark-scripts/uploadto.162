@@ -1,57 +1,57 @@
 #!/usr/bin/expect
 cd /Users/markt/Desktop/Git
 
-        spawn scp kiln4/autotune.sh pi@192.168.4.162:/home/pi/kiln-controller/autotune.sh
+        spawn scp kiln6-USA/autotune.sh pi@192.168.4.162:/home/pi/kiln-controller/autotune.sh
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/kiln-tuner.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-tuner.py
+        spawn scpkiln6-USA/kiln-tuner.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-tuner.py
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/kiln-controller.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-controller.py
+        spawn scp kiln6-USA/kiln-controller.py pi@192.168.4.162:/home/pi/kiln-controller/kiln-controller.py
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/public/index.html pi@192.168.4.162:/home/pi/kiln-controller/public/index.html
+        spawn scp kiln6-USA/public/index.html pi@192.168.4.162:/home/pi/kiln-controller/public/index.html
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/public/site-content.html pi@192.168.4.162:/home/pi/kiln-controller/public/
+        spawn scp kiln6-USA/public/site-content.html pi@192.168.4.162:/home/pi/kiln-controller/public/
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/public/assets/css/picoreflow.css pi@192.168.4.162:/home/pi/kiln-controller/public/assets/css/picoreflow.css
+        spawn scp kiln6-USA/public/assets/css/picoreflow.css pi@192.168.4.162:/home/pi/kiln-controller/public/assets/css/picoreflow.css
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/public/assets/js/picoreflow.js pi@192.168.4.162:/home/pi/kiln-controller/public/assets/js/picoreflow.js
+        spawn scp kiln6-USA/public/assets/js/picoreflow.js pi@192.168.4.162:/home/pi/kiln-controller/public/assets/js/picoreflow.js
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/config.py pi@192.168.4.162:/home/pi/kiln-controller/config.py
+        spawn scp kiln6-USA/config.py pi@192.168.4.162:/home/pi/kiln-controller/config.py
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/lib/oven.py pi@192.168.4.162:/home/pi/kiln-controller/lib/oven.py
+        spawn scp kiln6-USA/lib/oven.py pi@192.168.4.162:/home/pi/kiln-controller/lib/oven.py
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/mark-scripts/uploadto.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        spawn scp kiln6-USA/mark-scripts/uploadto.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}
                   }
-        spawn scp kiln4/mark-scripts/downloadfrom.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
+        spawn scp kiln6-USA/mark-scripts/downloadfrom.162 pi@192.168.4.162:/home/pi/kiln-controller/mark-scripts/
         set pass "markymark"
         expect {
         password: {send "$pass\r"; exp_continue}

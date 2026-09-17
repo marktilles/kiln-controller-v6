@@ -6,8 +6,16 @@ import sys
 import logging
 import json
 from datetime import datetime
-
 import bottle
+
+# Add for health feature
+import subprocess
+script_dir = os.path.dirname(os.path.abspath(__file__))
+from bottle import template, TEMPLATE_PATH
+# Now add views to TEMPLATE_PATH
+TEMPLATE_PATH.insert(0, os.path.join(script_dir, 'views'))
+
+
 import gevent
 import geventwebsocket
 #from bottle import post, get
@@ -412,6 +420,90 @@ def main():
     server = WSGIServer((ip, port), app,
                         handler_class=WebSocketHandler)
     server.serve_forever()
+
+# --- System health report ---
+def run_health_command(command, timeout=5):
+    """Run a read-only diagnostic command and return its output."""
+    try:
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False
+        )
+        output = result.stdout.strip()
+        if result.stderr.strip():
+            output += ("\n" if output else "") + result.stderr.strip()
+        return output if output else "(no output)"
+    except subprocess.TimeoutExpired:
+        return "(command timed out)"
+    except Exception as e:
+        return f"(error: {e})"
+
+
+def get_system_health():
+    """Collect current, read-only Raspberry Pi OS/Debian health information."""
+    return {
+        "hostname": run_health_command(["hostname"]),
+        "date": run_health_command(["date", "+%Y-%m-%d %H:%M:%S %Z"]),
+        "uptime": run_health_command(["uptime"]),
+        "disk": run_health_command(
+            ["df", "-hT", "-x", "tmpfs", "-x", "devtmpfs"]
+        ),
+        "inodes": run_health_command(
+            ["df", "-hi", "-x", "tmpfs", "-x", "devtmpfs"]
+        ),
+        "memory": run_health_command(["free", "-h"]),
+        "load": run_health_command(
+            ["awk", '{print "1 min: " $1 "\n5 min: " $2 "\n15 min: " $3}', "/proc/loadavg"]
+        ),
+        "process_count": run_health_command(
+            ["bash", "-c", "ps -e --no-headers | wc -l"]
+        ),
+        "top_memory": run_health_command(
+            ["bash", "-c", "ps aux --sort=-%mem | head -11"]
+        ),
+        "top_cpu": run_health_command(
+            ["bash", "-c", "ps aux --sort=-%cpu | head -11"]
+        ),
+        "failed_services": run_health_command(
+            ["systemctl", "--failed", "--no-legend"]
+        ),
+        "network": run_health_command(["ip", "-brief", "addr"]),
+        "route": run_health_command(["ip", "route", "show", "default"]),
+        "dns": run_health_command(
+            ["bash", "-c", "grep -v '^[[:space:]]*#' /etc/resolv.conf"]
+        ),
+        "kernel_errors": run_health_command(
+            ["dmesg", "--level=warn,err", "--ctime"]
+        ),
+        "journal_errors": run_health_command(
+            ["journalctl", "-p", "err", "-b", "--no-pager", "-n", "40"]
+        ),
+        "mounts": run_health_command(
+            ["findmnt", "-rn", "-o", "TARGET,SOURCE,FSTYPE,OPTIONS"]
+        ),
+    }
+
+
+class DotDict(dict):
+    """Dictionary subclass that allows attribute-style access (e.g., obj.key)."""
+    def __getattr__(self, item):
+        try:
+            return self[item]
+        except KeyError:
+            raise AttributeError(f"'DotDict' object has no attribute '{item}'")
+
+@app.route("/health")
+def health():
+    """Display a live system health report."""
+    raw_health = get_system_health()
+    health_obj = DotDict(raw_health)
+    
+    # Pass health_obj as both 'health' and unpacked kwargs
+    return template("health.html", health=health_obj, **health_obj)
+
 
 
 if __name__ == "__main__":

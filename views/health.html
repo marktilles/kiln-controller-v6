@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
+    <title>Raspberry Pi System Health</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        .container {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 95%;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .timestamp {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+            margin-top: 25px;
+        }
+
+        pre {
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .back {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            margin-top: 25px;
+        }
+
+        .back:hover {
+            background-color: #45a049;
+        }
+
+        .note {
+            color: #666;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Raspberry Pi System Health</h1>
+    <div class="timestamp">
+        {{ health.hostname }}<br>
+        {{ health.date }}
+    </div>
+
+    <h2>Uptime / Load</h2>
+    <pre>{{ health.uptime }}</pre>
+    <pre>{{ health.load }}</pre>
+
+    <h2>Disk Usage</h2>
+    <pre>{{ health.disk }}</pre>
+
+    <h2>Inode Usage</h2>
+    <pre>{{ health.inodes }}</pre>
+
+    <h2>Memory / Swap</h2>
+    <pre>{{ health.memory }}</pre>
+
+    <h2>Process Count</h2>
+    <pre>{{ health.process_count }}</pre>
+
+    <h2>Top Processes by Memory</h2>
+    <pre>{{ health.top_memory }}</pre>
+
+    <h2>Top Processes by CPU</h2>
+    <pre>{{ health.top_cpu }}</pre>
+
+    <h2>Failed Systemd Services</h2>
+    <pre>{{ health.failed_services }}</pre>
+
+    <h2>Network Interfaces</h2>
+    <pre>{{ health.network }}</pre>
+
+    <h2>Default Route</h2>
+    <pre>{{ health.route }}</pre>
+
+    <h2>DNS Configuration</h2>
+    <pre>{{ health.dns }}</pre>
+
+    <h2>Recent Kernel Warnings / Errors</h2>
+    <pre>{{ health.kernel_errors }}</pre>
+
+    <h2>Journal Errors Since Boot</h2>
+    <pre>{{ health.journal_errors }}</pre>
+
+    <h2>Mounted Filesystems</h2>
+    <pre>{{ health.mounts }}</pre>
+
+    <p class="note">This page is generated live when opened. It automatically refreshes every 5 minutes.</p>
+
+    <a class="back" href="/picoreflow/index.html">Back to Kiln Controller</a>
+
+
+</div>
+</body>
+</html>
