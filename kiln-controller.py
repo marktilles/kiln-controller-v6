@@ -455,9 +455,9 @@ def get_system_health():
             ["df", "-hi", "-x", "tmpfs", "-x", "devtmpfs"]
         ),
         "memory": run_health_command(["free", "-h"]),
-        "load": run_health_command(
-            ["awk", '{print "1 min: " $1 "\n5 min: " $2 "\n15 min: " $3}', "/proc/loadavg"]
-        ),
+#        "load": run_health_command(
+#            ["awk", '{print "1 min: " $1 "\n5 min: " $2 "\n15 min: " $3}', "/proc/loadavg"]
+        "load": run_health_command(["cat", "/proc/loadavg"]),
         "process_count": run_health_command(
             ["bash", "-c", "ps -e --no-headers | wc -l"]
         ),
