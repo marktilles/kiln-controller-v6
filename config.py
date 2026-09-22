@@ -19,7 +19,7 @@ function_passcode = ""
 # Enable a blinking LED while service is running.
 # Requires modules: gpiozero, signal, warnings, os, sys
 # Set to "False" if not desired or if not all of the above modules are installed.
-service_running_led = True
+service_running_led = False
 service_running_led_gpio = 6 # Old system
 #service_running_led_gpio = 16 # New development system
 
@@ -226,20 +226,20 @@ kiln_must_catch_up = False
 # or 100% off because the kiln is too hot. No integral builds up
 # outside the window. The bigger you make the window, the more
 # integral you will accumulate.This should be a positive integer.
-pid_control_window = 5 #degrees
+pid_control_window = 3 #degrees
 
 # Ignore over-swings and let the firing curve progress until this temp is reached. This shortens the firing time
 # because oherwise overswings over the pid_control_window cause the timer to stop until the kiln cools off. But
 # there isn't really any risk involved since we are still at such a low temp, just let the curve continue on until
 # the target temp catches up to the overshot temp and then continue normally. If you dont want this, set to 10
-ignore_pid_control_window_until = 70 
+ignore_pid_control_window_until = 100
 
 # thermocouple offset
 # If you put your thermocouple in ice water and it reads 36F, you can
 # set set this offset to -4 to compensate.  This probably means you have a
 # cheap thermocouple.  Invest in a better thermocouple.
 # Only full decimals
-thermocouple_offset = -8
+thermocouple_offset = 0
 
 # number of samples of temperature to take over each duty cycle.
 # The larger the number, the more load on the board. K type 
@@ -310,5 +310,5 @@ kiln_profiles_directory = os.path.abspath(os.path.join(os.path.dirname( __file__
 # of the elements are used max.
 # To prevent throttling, set throttle_percent to 100.
 throttle_below_temp = 300
-throttle_percent = 60
+throttle_percent = 30
 #throttle_percent = 100
